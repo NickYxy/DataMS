@@ -1,0 +1,223 @@
+/* here you can put your own css to customize and override the theme */
+
+/*       -----------自定义全局css开始-----------     */
+#custom-logo-left-top {
+    height: 50px;
+    margin: 0;
+}
+
+.right {
+    float: right;
+}
+
+.tabbable-custom > .nav-tabs > li.active {
+    border-top: 3px solid #36c6d3;
+    margin-top: 0;
+    position: relative;
+}
+
+.px-0 {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+.m-25 {
+    margin-top: 25px !important;
+    margin-bottom: 25px !important;
+}
+
+.table tbody tr td {
+    vertical-align: middle;
+}
+
+.alert-container {
+    position: fixed;
+    top: 70px;
+    width: 80%;
+    z-index: 2;
+}
+
+/*       -----------自定义全局css结束-----------     */
+
+/*       -----------课程局部css开始-----------     */
+#course-img-pre {
+    /*max-height: 220px;*/
+    /*margin-bottom: 0px;*/
+    width: 100%;
+    position: relative;
+    height: 0;
+    overflow: hidden;
+    padding-bottom: 54.545454%;
+}
+
+#course-img-pre img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0
+}
+
+.preVideo {
+    background-color: rgb(0, 0, 0);
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.studyVideo {
+    background-color: rgb(0, 0, 0);
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+#course-view {
+    margin-bottom: 30px;
+}
+
+.course-name {
+    display: block;
+    text-align: center;
+}
+
+.studyContainer {
+    margin-top: 30px;
+}
+
+.upWarning {
+    color: #1BA39C;
+}
+
+/*       -----------课程局部css结束-----------     */
+
+/*       -----------练习局部css开始-----------     */
+.navbar-form.px-0 select.form-control {
+    position: relative;
+    top: -1px;
+}
+
+.radio-select-inline {
+    display: flex;
+}
+
+.radio-select-inline-select {
+    position: relative;
+    top: -6px;
+    padding-left: 20px;
+    min-width: 200px;
+}
+
+input#choose-all {
+    width: 18px;
+    height: 18px;
+    border: 1px solid;
+}
+
+input.choose-item {
+    width: 18px;
+    height: 18px;
+    border: 1px solid;
+}
+
+.table-button.exercise.right {
+    width: 200px;
+}
+
+.div-add-exercise-questions {
+    display: inline-block;
+    position: relative;
+    top: -43px;
+    left: 500px;
+}
+
+@media screen and (max-width: 800px) {
+    .div-add-exercise-questions {
+        display: flex;
+        flex-direction: row;
+        left: 60px;
+    }
+}
+
+#id-button-add-exercise-question {
+    margin-right: 5px;
+}
+
+#table-add-exercise-questions {
+    position: relative;
+    top: -25px;
+}
+
+/*       -----------练习局部css开始-----------     */
+/*       -----------考试局部css开始-----------     */
+.time-cell {
+    min-width: 10%;
+    max-width: 30%;
+    background: #32c5d275;
+    color: #fff;
+    font-size: 40px;
+    font-family: Arial;
+    padding: 0 5px;
+    margin-right: 10px;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+    font-weight: 400;
+    text-align: center;
+}
+
+.time-item span {
+    font-size: 18px;
+}
+
+.time-item div {
+    position: relative;
+    top: 10px
+}
+
+.time-item {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.exam-textarea {
+    border: 0;
+    border-bottom: 1px solid #c2cad8;
+    font-size: 14px;
+    color: #555;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.option-cell {
+    padding: 0 20px;
+}
+
+.div-alert-info {
+    text-align: left;
+    padding: 0 10%;
+}
+/*       -----------考试局部css结束-----------     */
+
+/*       ----------学生实训局部css开始-----------     */
+.line-cell {
+    padding-left: 3%;
+}
+
+.homework-info {
+    display: flex;
+    justify-content: space-between;
+}
+
+.submit-info {
+    min-width: 150px;
+}
+
+.teacher-evaluation p {
+    font-size: 14px;
+    margin-bottom: 10px;
+    margin-left: 3%;
+}
+/*       ----------学生实训局部css结束-----------     */
+
+.fixed-table-body {
+    height: auto;
+}
