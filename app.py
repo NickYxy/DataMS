@@ -8,10 +8,15 @@ db = ''
 app = Flask(__name__)
 
 
-@app.route('/')
-def hello_world():
-    return 'Hello World!'
+def main():
+    config = dict(
+        host='0.0.0.0',
+        port='8001',
+    )
+
+    app.jinja_env.auto_reload = True
+    app.run(**config)
 
 
 if __name__ == '__main__':
-    app.run()
+    main()
