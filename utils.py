@@ -1,4 +1,25 @@
 import os
+import time
+import maya
+from uuid import uuid4
+
+
+def epoch_of_now():
+    return maya.now().epoch
+
+
+def epoch_of_date(date):
+    return maya.when(date, timezone='Asia/Shanghai').epoch
+
+
+def epoch_of_tomorrow_date(date):
+    return maya.when(date, timezone='Asia/Shanghai').add(days=1).epoch
+
+
+def short_uuid():
+    seed = str(uuid4())
+    short_seed = seed.split('-')[-1]
+    return short_seed
 
 
 def project_path():
@@ -19,3 +40,28 @@ def path_for(*paths):
     path = os.path.join(root, *paths)
     path = os.path.abspath(path)
     return path
+
+
+def time_str(t):
+    return time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime(int(t) + 3600 * 8))
+
+
+def user_role(role):
+    d = {
+        'admin': '系统管理员',
+        't_1': '总师',
+        't_2': '总体',
+        't_3': '指挥',
+        'user': '用户',
+    }
+    return d.get(role, '用户')
+
+
+def make_dirs(name):
+    os.makedirs(name, exist_ok=True)
+
+
+filters = {
+    'time_str': time_str,
+    'user_role': user_role,
+}

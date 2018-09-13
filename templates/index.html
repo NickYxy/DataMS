@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block body %}
+	<div class="portlet light bordered">
+		<div class="portlet-title">
+			<div class="caption">
+				<i class="icon-bubble font-green-sharp"></i>
+				<span class="caption-subject font-green-sharp sbold">待处理流程</span>
+			</div>
+
+		</div>
+		<div class="portlet-body">
+
+		</div>
+	</div>
+
+	<div class="portlet light bordered">
+		<div class="portlet-title">
+			<div class="caption">
+				<i class="icon-bubble font-green-sharp"></i>
+				<span class="caption-subject font-green-sharp sbold">登录信息</span>
+			</div>
+
+		</div>
+		<div class="portlet-body">
+
+			<table class="table " data-toggle="table" id="log-table" data-pagination="true" data-page-size="10">
+				<thead>
+				<tr>
+					<th class="th-col-1">操作账号</th>
+					<th class="th-col-1">操作模块</th>
+					<th class="th-col-1">操作系统</th>
+					<th class="th-col-1">操作ip</th>
+					<th class="th-col-1">浏览器</th>
+					<th class="th-col-2">时间</th>
+				</tr>
+				</thead>
+				<tbody>
+				{% for m in ms %}
+					<tr data-id={{ m.id }}>
+						<td>{{ m.user_name }}</td>
+						<td>{{ m.action }}</td>
+						<td>{{ m.platform }}</td>
+						<td>{{ m.ip }}</td>
+						<td>{{ m.browser }}</td>
+						<td>{{ m.ct | time_str }}</td>
+					</tr>
+				{% endfor %}
+				</tbody>
+			</table>
+
+		</div>
+	</div>
+
+{% endblock %}

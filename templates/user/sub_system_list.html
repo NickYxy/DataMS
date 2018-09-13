@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% block body %}
+	<div class="page-bar">
+		<ul class="page-breadcrumb">
+			<li>
+				<a href="{{ url_for('index.index') }}">Home</a>
+				<i class="fa fa-angle-right"></i>
+			</li>
+			<li>
+				<span>分系统列表</span>
+			</li>
+		</ul>
+	</div>
+
+	<h1 class="page-title">
+		<i class="icon-list font-green"></i>
+		<span class="caption-subject font-green sbold uppercase">分系统列表</span>
+	</h1>
+
+	<form class="navbar-form px-0" action="" method="post">
+		<div class="th-col-1">
+			<input type="text" class="form-control" name="name" placeholder="请输入分系统名称" id="keyword">
+			<button type="submit" class="btn btn-default">查询 <i class="fa fa-search"></i></button>
+
+			{% if u.is_admin() %}
+				<a href="{{ url_for('sub_system.sub_system_add') }}">
+					<button class="btn green right">新增分系统
+						<i class="fa fa-plus"></i>
+					</button>
+				</a>
+			{% endif %}
+		</div>
+	</form>
+
+	<div class="portlet light bordered">
+		<div class="portlet-body">
+
+			<table class="table " data-toggle="table" id="log-table" data-pagination="true" data-page-size="10">
+				<thead>
+				<tr>
+					<th class="th-col-2">分系统名称</th>
+					<th class="th-col-2">创建人</th>
+					<th class="th-col-3">创建时间</th>
+					<th class="th-col-4">操作</th>
+				</tr>
+				</thead>
+				<tbody>
+				{% for system in systems %}
+					<tr data-id={{ system.id }}>
+						<td>{{ system.sys_name }}</td>
+						<td>{{ system.creator }}</td>
+						<td>{{ system.ct | time_str }}</td>
+						<td>
+							<a href="#"
+							   class="btn blue-hoki btn-outline sbold uppercase btn-sm"><i
+									class="fa fa-book"></i>查看参数</a>
+							{% if u.is_admin() %}
+								<a href="#"
+								   data-url="{{ url_for('sub_system.sub_system_del', uuid=system.uuid) }}"
+								   class="btn red-mint btn-outline sbold btn-sm course_delete"><i
+										class="fa fa-trash"></i> 删除</a>
+							{% endif %}
+						</td>
+					</tr>
+				{% endfor %}
+				</tbody>
+			</table>
+
+		</div>
+	</div>
+
+{% endblock %}
