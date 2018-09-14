@@ -25,9 +25,7 @@ def sub_system_add():
 @main.route('/sub_system/del/<uuid>')
 @admin_required
 def sub_system_del(uuid):
-    u = current_user()
     m = SubSystem.get_uuid(uuid)
-    # todo 等练习、考试做完
     m.delete()
     flash('删除成功', 'success')
     return redirect(url_for('sub_system.sub_system_list_page'))

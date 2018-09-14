@@ -108,6 +108,29 @@
 						</li>
 					</ul>
 				</li>
+				{% if u.is_admin() %}
+					<li class="nav-item start">
+						<a href="javascript:" class="nav-link nav-toggle">
+							<i class="icon-graduation"></i>
+							<span class="title">人员管理</span>
+							<span class="arrow"></span>
+						</a>
+						<ul class="sub-menu">
+							<li class="nav-item ">
+								<a href="{{ url_for('admin.user_list') }}" class="nav-link ">
+									<i class="icon-list"></i>
+									<span class="title">用户列表</span>
+								</a>
+							</li>
+							<li class="nav-item ">
+								<a href="{{ url_for('sub_system.sub_system_list_page') }}" class="nav-link ">
+									<i class="icon-list"></i>
+									<span class="title">新增用户</span>
+								</a>
+							</li>
+						</ul>
+					</li>
+				{% endif %}
 			{% endif %}
 		</ul>
 		<!-- END SIDEBAR MENU -->

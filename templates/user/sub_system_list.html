@@ -16,57 +16,117 @@
 		<i class="icon-list font-green"></i>
 		<span class="caption-subject font-green sbold uppercase">分系统列表</span>
 	</h1>
-
-	<form class="navbar-form px-0" action="" method="post">
+	{% if u.is_admin() %}
+		<button data-toggle="modal"
+				data-target="#id-modal-system-add" class="btn green right">新增分系统
+			<i class="fa fa-plus"></i>
+		</button>
+	{% endif %}
+	<form class="navbar-form px-0" action="{{ url_for('sub_system.sub_system_list_page') }}">
 		<div class="th-col-1">
 			<input type="text" class="form-control" name="name" placeholder="请输入分系统名称" id="keyword">
 			<button type="submit" class="btn btn-default">查询 <i class="fa fa-search"></i></button>
-
-			{% if u.is_admin() %}
-				<a href="{{ url_for('sub_system.sub_system_add') }}">
-					<button class="btn green right">新增分系统
-						<i class="fa fa-plus"></i>
-					</button>
-				</a>
-			{% endif %}
 		</div>
 	</form>
 
-	<div class="portlet light bordered">
-		<div class="portlet-body">
+	<div class="portlet-body">
 
-			<table class="table " data-toggle="table" id="log-table" data-pagination="true" data-page-size="10">
-				<thead>
-				<tr>
-					<th class="th-col-2">分系统名称</th>
-					<th class="th-col-2">创建人</th>
-					<th class="th-col-3">创建时间</th>
-					<th class="th-col-4">操作</th>
+		<table class="table " data-toggle="table" id="log-table" data-pagination="true" data-page-size="10">
+			<thead>
+			<tr>
+				<th class="th-col-2">分系统名称</th>
+				<th class="th-col-2">创建人</th>
+				<th class="th-col-3">创建时间</th>
+				<th class="th-col-4">操作</th>
+			</tr>
+			</thead>
+			<tbody>
+			{% for system in systems %}
+				<tr data-id={{ system.id }}>
+					<td>{{ system.sys_name }}</td>
+					<td>{{ system.creator }}</td>
+					<td>{{ system.ct | time_str }}</td>
+					<td>
+						<a href="javascript:"
+						   class="btn blue-hoki btn-outline sbold uppercase btn-sm"><i
+								class="fa fa-book"></i>查看参数</a>
+						{% if u.is_admin() %}
+							<button data-toggle="modal"
+									data-target="#id-modal-system-add"
+									class="btn grey-mint btn-outline sbold uppercase btn-sm"><i
+									class="fa fa-plus"></i>添加参数
+							</button>
+							<a href="javascript:"
+							   onclick="sub_system_del('{{ system.sys_name }}', '{{ system.uuid }}')"
+							   class="btn red-mint btn-outline sbold btn-sm course_delete"><i
+									class="fa fa-trash"></i> 删除</a>
+						{% endif %}
+					</td>
 				</tr>
-				</thead>
-				<tbody>
-				{% for system in systems %}
-					<tr data-id={{ system.id }}>
-						<td>{{ system.sys_name }}</td>
-						<td>{{ system.creator }}</td>
-						<td>{{ system.ct | time_str }}</td>
-						<td>
-							<a href="#"
-							   class="btn blue-hoki btn-outline sbold uppercase btn-sm"><i
-									class="fa fa-book"></i>查看参数</a>
-							{% if u.is_admin() %}
-								<a href="#"
-								   data-url="{{ url_for('sub_system.sub_system_del', uuid=system.uuid) }}"
-								   class="btn red-mint btn-outline sbold btn-sm course_delete"><i
-										class="fa fa-trash"></i> 删除</a>
-							{% endif %}
-						</td>
-					</tr>
-				{% endfor %}
-				</tbody>
-			</table>
+			{% endfor %}
+			</tbody>
+		</table>
 
+	</div>
+	<div id="id-modal-system-add" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button class="close" data-dismiss="modal"></button>
+					<h4 class="modal-title">请设置分系统基础信息</h4>
+				</div>
+				<form method="POST" enctype="multipart/form-data" action="{{ url_for('sub_system.sub_system_add') }}">
+					<div class="modal-body">
+						<div class="form-group">
+							<label><span class="font-red">*</span>分系统名称</label>
+							<input name="sys_name" type="text"
+								   autocomplete="off"
+                                   placeholder="请输入分系统名"
+								   class="form-control">
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn dark btn-outline" data-dismiss="modal">关闭</button>
+						<button type="submit" class="btn green">保存</button>
+					</div>
+				</form>
+			</div>
 		</div>
 	</div>
-
+	<script>
+        let sub_system_del = function (name, uuid) {
+            swal({
+                    title: `确定删除 "${name}" 吗？`,
+                    text: "该操作无法恢复！",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "确定删除！",
+                    cancelButtonText: '取消',
+                    closeOnConfirm: false,
+                },
+                function () {
+                    $.get(`/sub_system/sub_system/del/${uuid}`)
+                        .done(function () {
+                            swal({
+                                title: "成功！",
+                                text: "删除：" + name,
+                                type: "success",
+                                timer: 600,
+                            }, function () {
+                                location.reload()
+                            })
+                        })
+                        .fail(function (xhr, status, error) {
+                            swal({
+                                title: "错误！",
+                                text: "服务器响应：" + error,
+                                type: "error",
+                            }, function () {
+                                location.reload()
+                            })
+                        })
+                })
+        }
+	</script>
 {% endblock %}

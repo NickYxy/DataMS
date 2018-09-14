@@ -50,11 +50,11 @@ def user_role(role):
     d = {
         'admin': '系统管理员',
         't_1': '总师',
-        't_2': '总体',
-        't_3': '指挥',
-        'user': '用户',
+        't_2': '测试总体',
+        't_3': '测试指挥',
+        'user': '判读人员',
     }
-    return d.get(role, '用户')
+    return d.get(role, '判读人员')
 
 
 def make_dirs(name):

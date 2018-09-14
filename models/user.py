@@ -12,7 +12,7 @@ class User(MongoModel):
             # 登录密码
             ('password', str, ''),
             # 用户角色, 'admin'/'manager'/'user'/'t_1--t_3'
-            ('role', str, 'student'),
+            ('role', str, 'user'),
 
             # 权限列表
             ('privlist', list, []),
