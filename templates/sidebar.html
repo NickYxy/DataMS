@@ -33,13 +33,13 @@
 					{% if not u.is_admin() %}
 						<ul class="sub-menu">
 							<li class="nav-item ">
-								<a href="#" class="nav-link ">
+								<a href="{{ url_for('user.privilege_list') }}" class="nav-link ">
 									<i class="icon-list"></i>
 									<span class="title">我的权限</span>
 								</a>
 							</li>
 							<li class="nav-item ">
-								<a href="#" class="nav-link ">
+								<a href="{{ url_for('user.privilege_apply_page') }}" class="nav-link ">
 									<i class="icon-plus"></i>
 									<span class="title">权限申请</span>
 								</a>
@@ -48,7 +48,7 @@
 					{% else %}
 						<ul class="sub-menu">
 							<li class="nav-item ">
-								<a href="#" class="nav-link ">
+								<a href="{{ url_for('user.privilege_list') }}" class="nav-link ">
 									<i class="icon-list"></i>
 									<span class="title">我的权限</span>
 								</a>
@@ -71,21 +71,21 @@
 					</a>
 					<ul class="sub-menu">
 						<li class="nav-item ">
-							<a href="#" class="nav-link ">
-								<i class="icon-control-play"></i>
-								<span class="title">启动流程</span>
+							<a href="{{ url_for('user.parameters_list_page') }}" class="nav-link ">
+								<i class="icon-list"></i>
+								<span class="title">规程列表</span>
 							</a>
 						</li>
 						<li class="nav-item ">
-							<a href="#" class="nav-link ">
+							<a href="{{ url_for('user.parameters_add') }}" class="nav-link ">
 								<i class="icon-note"></i>
-								<span class="title">参数批注</span>
+								<span class="title">录入规程</span>
 
 							</a>
 						</li>
 						<li class="nav-item ">
 							<a href="#" class="nav-link ">
-								<i class="icon-note"></i>
+								<i class="icon-pie-chart"></i>
 								<span class="title">规程统计</span>
 
 							</a>
@@ -119,13 +119,7 @@
 							<li class="nav-item ">
 								<a href="{{ url_for('admin.user_list') }}" class="nav-link ">
 									<i class="icon-list"></i>
-									<span class="title">用户列表</span>
-								</a>
-							</li>
-							<li class="nav-item ">
-								<a href="{{ url_for('sub_system.sub_system_list_page') }}" class="nav-link ">
-									<i class="icon-list"></i>
-									<span class="title">新增用户</span>
+									<span class="title">人员列表</span>
 								</a>
 							</li>
 						</ul>

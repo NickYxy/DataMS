@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% block body %}
+	<div class="page-bar">
+		<ul class="page-breadcrumb">
+			<li>
+				<a href="{{ url_for('index.index') }}">Home</a>
+				<i class="fa fa-angle-right"></i>
+			</li>
+			<li><span>录入规程</span></li>
+		</ul>
+	</div>
+
+	<h1 class="page-title">
+		<i class="icon-note font-green"></i>
+		<span class="caption-subject font-green sbold uppercase">录入规程</span>
+	</h1>
+
+	<div class="portlet light bordered">
+		<div class="portlet-body">
+			<div class="form-horizontal">
+				<form method=POST enctype=multipart/form-data
+					  action="{{ url_for('user.parameters_add') }}">
+					<div class="form-group form-md-line-input">
+						<label class="col-md-2 control-label" for="form_control_2">分系统</label>
+						<div class="col-md-10">
+							<select required class="form-control" name="category" id="form_control_2">
+								<option value="">请选择系统</option>
+								{% for m in ms %}
+									{% if m.editable(u) %}
+										<option value="{{ m.sys_name }}">{{ m.sys_name }}</option>
+									{% endif %}
+								{% endfor %}
+							</select>
+							<div class="form-control-focus"></div>
+						</div>
+					</div>
+
+					<div class="form-group form-md-line-input">
+						<label class="col-md-2 control-label" for="form_control_1">规程名称</label>
+						<div class="col-md-10">
+							<input required type="text" class="form-control" name="name" autocomplete="off"
+								   id="form_control_1"
+								   placeholder="请输入规程名">
+							<div class="form-control-focus"></div>
+							<span class="help-block"><span class="label label-sm label-danger">必填</span> 请输入规程名</span>
+						</div>
+					</div>
+
+					<div class="form-group form-md-line-input">
+						<label class="col-md-2 control-label" for="form_control_1">规程参数</label>
+						<div class="col-md-10">
+							<input required type="text" class="form-control" name="name" autocomplete="off"
+								   id="form_control_1"
+								   placeholder="请输入规程参数">
+							<div class="form-control-focus"></div>
+							<span class="help-block"><span class="label label-sm label-danger">必填</span> 请输入规程参数</span>
+						</div>
+					</div>
+
+					<div class="form-actions">
+						<div class="row">
+							<div class="col-md-offset-5 col-md-3">
+								<a class="btn default" type="button"
+								   href="{{ url_for('user.parameters_list_page') }}">&nbsp;&nbsp;取消&nbsp;&nbsp;
+								</a>
+								<button class="btn green" type="submit">发起申请</button>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}

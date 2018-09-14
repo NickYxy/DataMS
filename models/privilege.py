@@ -5,10 +5,17 @@ from enum import Enum
 
 class Privileges(Enum):
     # 编辑
-    edit = 1
+    edit = '编辑'
     # 校对
-    revision = 2
+    revision = '校对'
     # 审核
-    audit = 3
+    audit = '审核'
     # 批准
-    approve = 4
+    approve = '批准'
+
+
+def get_all_privileges():
+    ps = []
+    for privilege in Privileges:
+        ps.append(privilege)
+    return ps

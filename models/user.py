@@ -7,15 +7,17 @@ class User(MongoModel):
     @classmethod
     def _fields(cls):
         fields = [
-            # 姓名
+            # 账号
             ('name', str, ''),
+            # 姓名
+            ('username', str, ''),
             # 登录密码
             ('password', str, ''),
             # 用户角色, 'admin'/'manager'/'user'/'t_1--t_3'
             ('role', str, 'user'),
 
             # 权限列表
-            ('privlist', list, []),
+            ('privlist', dict, {}),
             # 进程列表
             ('proclist', list, []),
             # 用户密码的盐、
@@ -29,13 +31,13 @@ class User(MongoModel):
     def get_username(cls, uuid):
         user = cls.get_uuid(uuid)
         if user is not None:
-            return user.name
+            return user.username
         else:
             return ''
 
     @classmethod
-    def new(cls, form):
-        m = super().new(form)
+    def new(cls, form, **kwargs):
+        m = super().new(form, **kwargs)
         m.password = m.salted_password(form.get('password', ''))
         m.save()
         return m
@@ -68,31 +70,23 @@ class User(MongoModel):
         return status, msgs
 
     def is_admin(self):
-        return self.role == 'admin'
+        return self.role == '管理员'
 
     # 总师 -- 批准权限
     def is_t_1(self):
-        return self.role == 't_1' or self.is_admin()
+        return self.role == '总师' or self.is_admin()
 
     # 指挥 -- 一级审核权限
     def is_t_2(self):
-        return self.role == 't_2' or self.is_t_1()
+        return self.role == '测试指挥' or self.is_t_1()
 
     # 总体 -- 二级审核权限
     def is_t_3(self):
-        return self.role == 't_3' or self.is_t_2()
+        return self.role == '测试总体' or self.is_t_2()
 
     # 判读人员 -- 普通校对权限
     def is_user(self):
-        return self.role == 'user'
-
-    @classmethod
-    def get_priv_list(self):
-        return self.privlist
-
-    @classmethod
-    def get_proc_list(self):
-        return self.proclist
+        return self.role == '判读人员'
 
     @classmethod
     def insert_admin(cls):
@@ -100,7 +94,13 @@ class User(MongoModel):
         if not u:
             form = {
                 'name': 'admin',
-                'role': 'admin',
-                'password': '123456'
+                'username': 'admin',
+                'role': '管理员',
+                'password': '123456',
             }
-            cls.new(form)
+            cls.new(form, privlist={'测试系统一': ['edit', 'revision', 'audit', 'approve'],
+                                    '测试系统二': ['edit'],
+                                    '测试系统三': ['edit'],
+                                    '测试系统四': ['edit']
+                                    },
+                    proclist=[])

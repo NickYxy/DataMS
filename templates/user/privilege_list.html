@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block body %}
+	<div class="page-bar">
+		<ul class="page-breadcrumb">
+			<li>
+				<a href="{{ url_for('index.index') }}">Home</a>
+				<i class="fa fa-angle-right"></i>
+			</li>
+			<li>
+				<a href="{{ url_for('user.privilege_list') }}">我的权限</a>
+			</li>
+		</ul>
+	</div>
+
+	<h1 class="page-title">
+		<i class="icon-list font-green"></i>
+		<span class="caption-subject font-green sbold uppercase">我的权限</span>
+	</h1>
+	{% if not u.is_admin() %}
+		<a href="{{ url_for('user.privilege_apply_page') }}">
+			<button class="btn green right">申请权限
+				<i class="fa fa-plus"></i>
+			</button>
+		</a>
+	{% endif %}
+	<form class="navbar-form px-0" action="{{ url_for('user.privilege_list') }}">
+		<div class="th-col-1">
+			<input type="text" class="form-control" name="name" placeholder="请输入分系统名称" id="keyword">
+			<button type="submit" class="btn btn-default">查询 <i class="fa fa-search"></i></button>
+		</div>
+	</form>
+
+	<div class="portlet-body">
+
+		<table class="table " data-toggle="table" id="log-table" data-pagination="true" data-page-size="10">
+			<thead>
+			<tr>
+				<th class="th-col-2" data-sortable="true">分系统</th>
+				<th class="th-col-2" data-sortable="true">权限</th>
+			</tr>
+			</thead>
+			<tbody>
+			{% for p in ps %}
+				{% for k in ps[p] %}
+					<tr data-id={{ p.id }}>
+						<td>{{ p }}</td>
+						<td>{{ k | priv_name }}</td>
+					</tr>
+				{% endfor %}
+			{% endfor %}
+			</tbody>
+		</table>
+
+	</div>
+
+{% endblock %}

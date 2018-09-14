@@ -57,6 +57,16 @@ def user_role(role):
     return d.get(role, '判读人员')
 
 
+def priv_name(priv):
+    d = {
+        'edit': '编辑',
+        'approve': '批准',
+        'revision': '校对',
+        'audit': '审核',
+    }
+    return d.get(priv, '')
+
+
 def make_dirs(name):
     os.makedirs(name, exist_ok=True)
 
@@ -64,4 +74,5 @@ def make_dirs(name):
 filters = {
     'time_str': time_str,
     'user_role': user_role,
+    'priv_name': priv_name,
 }

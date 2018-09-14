@@ -13,8 +13,6 @@ class SubSystem(MongoModel):
             ('creator_uuid', str, ''),
             # 创建时间
             ('create_name', str, ''),
-            # 参数列表
-            ('paralist', int, 0),
         ]
         fields.extend(super()._fields())
         return fields
@@ -39,3 +37,11 @@ class SubSystem(MongoModel):
         m = super().new(form, **kwargs)
         m.save()
         return m
+
+    def editable(self, u):
+        # 管理员可以编辑所有的系统
+        if u.is_admin():
+            return True
+        # 判读人员可以编辑自己权限内的系统
+        else:
+            return self.sys_name in u.privlist.keys() and 'edit' in u.privlist[self.sys_name]

@@ -1,84 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta content="width=device-width, initial-scale=1" name="viewport"/>
-    <meta content="Preview page of Metronic Admin Theme #1 for " name="description"/>
-    <meta content="" name="author"/>
-    <link href="/static/css/bootstrap.css" rel="stylesheet" type="text/css"/>
-    <!-- BEGIN THEME GLOBAL STYLES -->
-    <link href="/static/assets/global/css/components-rounded.min.css" rel="stylesheet" id="style_components"
+	<meta charset="utf-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta content="width=device-width, initial-scale=1" name="viewport"/>
+	<meta content="Preview page of Metronic Admin Theme #1 for " name="description"/>
+	<meta content="" name="author"/>
+	<link href="/static/css/bootstrap.css" rel="stylesheet" type="text/css"/>
+	<!-- BEGIN THEME GLOBAL STYLES -->
+	<link href="/static/assets/global/css/components-rounded.min.css" rel="stylesheet" id="style_components"
 		  type="text/css"/>
-    <link href="/static/assets/pages/css/login.min.css" rel="stylesheet" type="text/css"/>
-    <script src="/static/assets/global/plugins/jquery.min.js" type="text/javascript"></script>
-    <script src="/static/assets/global/scripts/app.min.js" type="text/javascript"></script>
-    <script src="/static/assets/layouts/layout/scripts/layout.min.js" type="text/javascript"></script>
-    <script src="/static/assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-    <script src="/static/assets/global/plugins/jquery.backstretch.min.js" type="text/javascript"></script>
+	<link href="/static/assets/pages/css/login.min.css" rel="stylesheet" type="text/css"/>
+	<script src="/static/assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+	<script src="/static/assets/global/scripts/app.min.js" type="text/javascript"></script>
+	<script src="/static/assets/layouts/layout/scripts/layout.min.js" type="text/javascript"></script>
+	<script src="/static/assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+	<script src="/static/assets/global/plugins/jquery.backstretch.min.js" type="text/javascript"></script>
 <body class="login" data-channel="public">
 <div class="user-login-5">
-    <div class="row bs-reset">
-        <div class="col-md-6 bs-reset mt-login-5-bsfix">
-            <div class="login-bg" style="background-image:url(/static/assets/pages/img/login/bg1.jpg)">
-            </div>
-        </div>
-        <div class="col-md-6 login-container bs-reset mt-login-5-bsfix">
-            <div class="login-content portlet-body form">
-                <form role="form" action="{{ url_for('user.login') }}" class="login-form form-user" method="post"
-                      data-type="login">
-                    <div class="form-body">
-                        <div class="row">
-                            <div class="container-fluid alert-container">
-                                {% with messages = get_flashed_messages(with_categories=true) %}
-                                    {% if messages %}
-                                        {% for category, message in messages %}
-                                            <div class="alert alert-{{ category }} alert-dismissible" role="alert">
-                                                <button type="button" class="close" data-dismiss="alert"
-                                                        aria-label="Close"><span
-                                                        aria-hidden="true">×</span></button>
-                                                {{ message }}
-                                            </div>
-                                        {% endfor %}
-                                    {% endif %}
-                                {% endwith %}
-                            </div>
+	<div class="row bs-reset">
+		<div class="col-md-6 bs-reset mt-login-5-bsfix">
+			<div class="login-bg" style="background-image:url(/static/assets/pages/img/login/bg1.jpg)">
+			</div>
+		</div>
+		<div class="col-md-6 login-container bs-reset mt-login-5-bsfix">
+			<div class="login-content portlet-body form">
+				<form role="form" action="{{ url_for('user.login') }}" class="login-form form-user" method="post"
+					  data-type="login">
+					<div class="form-body">
+						<div class="row">
+							<div class="container-fluid alert-container">
+								{% with messages = get_flashed_messages(with_categories=true) %}
+									{% if messages %}
+										{% for category, message in messages %}
+											<div class="alert alert-{{ category }} alert-dismissible" role="alert">
+												<button type="button" class="close" data-dismiss="alert"
+														aria-label="Close"><span
+														aria-hidden="true">×</span></button>
+												{{ message }}
+											</div>
+										{% endfor %}
+									{% endif %}
+								{% endwith %}
+							</div>
 
-                        </div>
-                        <h3>用户登录</h3>
-                        <br>
-                        <br>
-                        <div class="row">
-                            <div class="col-xs-6">
-                                <div class="form-group form-md-line-input form-md-floating-label">
-                                    <input class="form-control" type="text" autocomplete="off" name="name"
-                                           id="id-input-username" required/>
-                                    <label for="id-input-username">用户名</label>
-                                    <span class="help-block">请输入用户名</span>
-                                </div>
-                            </div>
-                            <div class="col-xs-6">
-                                <div class="form-group form-md-line-input form-md-floating-label">
-                                    <input class="form-control" type="password" autocomplete="off" name="password"
-                                           id="id-input-password" required/>
-                                    <label for="id-input-password">密码</label>
-                                    <span class="help-block">请输入密码</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-actions noborder">
-                        <div class="col-sm-4">
-                        </div>
-                        <div class="col-sm-8 text-right">
-                            <button class="btn green" type="submit">Sign In</button>
-                        </div>
-
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+						</div>
+						<h3>用户登录</h3>
+						<br>
+						<br>
+						<div class="row">
+							<div class="col-xs-6">
+								<div class="form-group form-md-line-input form-md-floating-label">
+									<input class="form-control" type="text" autocomplete="off" name="name"
+										   id="id-input-username" required/>
+									<label for="id-input-username">用户名</label>
+									<span class="help-block">请输入用户名</span>
+								</div>
+							</div>
+							<div class="col-xs-6">
+								<div class="form-group form-md-line-input form-md-floating-label">
+									<input class="form-control" type="password" autocomplete="off" name="password"
+										   id="id-input-password" required/>
+									<label for="id-input-password">密码</label>
+									<span class="help-block">请输入密码</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="form-actions noborder">
+						<div class="col-sm-4">
+						</div>
+						<div class="col-sm-8 text-right">
+							<button class="btn green" type="submit">Sign In</button>
+							<a href="{{ url_for('user.register_page') }}">
+								<button class="btn green" type="button" onclick="">Register</button>
+							</a>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
 </div>
 <script>
     $('.login-bg').backstretch([

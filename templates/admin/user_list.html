@@ -8,7 +8,7 @@
 				<i class="fa fa-angle-right"></i>
 			</li>
 			<li>
-				<a href="{{ url_for('manager.student') }}">学生列表</a>
+				<a href="{{ url_for('admin.user_list') }}">人员列表</a>
 			</li>
 		</ul>
 	</div>
@@ -17,14 +17,14 @@
 	<!-- BEGIN PAGE TITLE-->
 	<h1 class="page-title">
 		<i class="icon-list font-green"></i>
-		<span class="caption-subject font-green sbold uppercase">学生列表</span>
+		<span class="caption-subject font-green sbold uppercase">人员列表</span>
 	</h1>
 	<!-- END PAGE TITLE-->
 
-	<a class="btn green right" data-toggle="modal" data-target="#studentAdd">新增学生
+	<a class="btn green right" data-toggle="modal" data-target="#userAdd">新增人员
 		<i class="fa fa-plus"></i>
 	</a>
-	<form class="navbar-form px-0" action="" method="post">
+	<form class="navbar-form px-0" action="{{ url_for('admin.user_list') }}" method="">
 		<div class="th-col-1">
 			<input type="text" class="form-control" name="name" placeholder="账号">
 			<input type="text" class="form-control" name="username" placeholder="姓名">
@@ -42,9 +42,7 @@
 		<tr>
 			<th class="th-col-1" data-sortable="true">账号</th>
 			<th class="th-col-1" data-sortable="true">姓名</th>
-			<th class="th-col-1" data-sortable="true">电话</th>
-			<th class="th-col-1" data-sortable="true">专业</th>
-			<th class="th-col-1" data-sortable="true">班级</th>
+			<th class="th-col-1" data-sortable="true">角色</th>
 			<th class="th-col-2" data-sortable="true">注册日期</th>
 			<th class="th-col-2">操作</th>
 		</tr>
@@ -54,10 +52,8 @@
 			<tr data-id={{ p.id }}>
 				<td>{{ p.name }}</td>
 				<td>{{ p.username }}</td>
-				<td>{{ p.mobile }}</td>
-				<td>{{ p.subject }}</td>
-				<td>{{ p.class_uuid | classes_name_of_uuid }}</td>
-				<td>{{ p.ct | date_of_epoch }}</td>
+				<td>{{ p.role }}</td>
+				<td>{{ p.ct | time_str }}</td>
 				<td>
 					<a href="javascript:" onclick="user_edit('{{ p.name }}', '{{ p.uuid }}')"
 					   class="btn grey-mint btn-outline sbold btn-sm">
@@ -88,16 +84,16 @@
 
 
 	{# 新增学生 modal #}
-	<div class="modal fade bs-modal-lg in" id="studentAdd" tabindex="-1">
+	<div class="modal fade bs-modal-lg in" id="userAdd" tabindex="-1">
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					<h4 class="modal-title" id="userAddLabel">新增学生</h4>
+					<h4 class="modal-title" id="userAddLabel">新增人员</h4>
 				</div>
 
 				<form id="id-modal-add" method="POST" enctype="multipart/form-data"
-					  action="{{ url_for('manager.student_add') }}">
+					  action="{{ url_for('admin.user_add') }}">
 					<div class="modal-body">
 						<div class="row">
 							<div class="col-xs-6">
@@ -120,19 +116,31 @@
 								</div>
 							</div>
 						</div>
-
+						<div class="row">
+							<div class="col-xs-12">
+								<div class="form-group form-md-line-input form-md-floating-label">
+									<input class="form-control" type="text" autocomplete="off" name="username"
+										   id="id-input-username" required/>
+									<label for="id-input-username">姓名</label>
+									<span class="help-block">
+                                        <span class="label label-sm label-danger">必填</span> 请输入姓名</span>
+								</div>
+							</div>
+						</div>
 
 						<div class="row">
 							<div class="col-xs-12">
 								<div class="form-group form-md-line-input">
-									<select id="add-dep" class="form-control" name="department_uuid"
-											oninput="selectDepartmentAdd()">
-										<option value="" disabled selected>请选择</option>
-										{% for dep in deps %}
-											<option value="{{ dep.uuid }}">{{ dep.name }}</option>
-										{% endfor %}
+									<select id="add-dep" class="form-control" name="role"
+											oninput="selectRoleAdd()">
+										<option value="" disabled selected>选择角色</option>
+											<option value="判读人员">判读人员</option>
+											<option value="测试总体">测试总体</option>
+											<option value="测试指挥">测试指挥</option>
+											<option value="总师">总师</option>
+											<option value="系统管理员">系统管理员</option>
 									</select>
-									<label for="add-dep">院系</label>
+									<label>角色</label>
 								</div>
 							</div>
 						</div>
@@ -152,12 +160,14 @@
 
 	<script>
         let user_edit = function (name, uuid) {
-            $.get(`/manager/student/${uuid}`)
+            $.get(`/admin/user/${uuid}`)
                 .done(function (data) {
                     let edit = $('#studentEdit')
                     $(edit.find('input[name=uuid]')).val(data.uuid)
                     $(edit.find('input[name=name]')).val(data.name)
-                    $(edit.find('select[name=department_uuid]')).val(data.department_uuid)
+                    $(edit.find('input[name=password]')).val(data.password)
+                    $(edit.find('input[name=username]')).val(data.username)
+                    $(edit.find('select[name=role]')).val(data.role)
                     edit.modal()
                 })
         }
@@ -173,7 +183,7 @@
                     closeOnConfirm: false,
                 },
                 function () {
-                    $.get(`/admin/student/del/${uuid}`)
+                    $.get(`/admin/user/del/${uuid}`)
                         .done(function () {
                             swal({
                                 title: "成功！",

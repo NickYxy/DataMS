@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% block body %}
+	<div class="page-bar">
+		<ul class="page-breadcrumb">
+			<li>
+				<a href="{{ url_for('index.index') }}">Home</a>
+				<i class="fa fa-angle-right"></i>
+			</li>
+			<li><span>申请权限</span></li>
+		</ul>
+	</div>
+
+	<h1 class="page-title">
+		<i class="icon-note font-green"></i>
+		<span class="caption-subject font-green sbold uppercase">申请权限</span>
+	</h1>
+
+	<div class="portlet light bordered">
+		<div class="portlet-body">
+			<div class="form-horizontal">
+				<form method=POST enctype=multipart/form-data
+					  action="{{ url_for('user.privilege_apply') }}">
+					<div class="form-group form-md-line-input">
+						<label class="col-md-2 control-label" for="form_control_2">申请系统</label>
+						<div class="col-md-10">
+							<select required class="form-control" name="category" id="form_control_2">
+								<option value="">请选择系统</option>
+								{% for m in ms %}
+									<option value="{{ m.sys_name }}">{{ m.sys_name }}</option>
+								{% endfor %}
+							</select>
+							<div class="form-control-focus"></div>
+						</div>
+					</div>
+					<div class="form-group form-md-line-input">
+						<label class="col-md-2 control-label" for="form_control_2">申请权限</label>
+						<div class="col-md-10">
+							<select required class="form-control" name="category" id="form_control_2">
+								<option value="">请选择权限</option>
+								{% for p in ps %}
+									<option value="{{ p.name }}">{{ p.name | priv_name }}</option>
+								{% endfor %}
+							</select>
+							<div class="form-control-focus"></div>
+						</div>
+					</div>
+					<div class="form-group form-md-line-input">
+						<label class="col-md-2 control-label" for="form_control_1">申请原因</label>
+						<div class="col-md-10">
+                            <textarea required type="text" class="form-control" name="introduction" autocomplete="off"
+									  id="form_control_3" rows="2" maxlength="200"
+									  placeholder="申请原因，少于200字"></textarea>
+							<div class="form-control-focus"></div>
+							<span class="help-block"><span class="label label-sm label-danger">必填</span> 请输入申请原因</span>
+						</div>
+					</div>
+
+					<div class="form-actions">
+						<div class="row">
+							<div class="col-md-offset-5 col-md-3">
+								<a class="btn default" type="button"
+								   href="{{ url_for('user.privilege_list') }}">&nbsp;&nbsp;取消&nbsp;&nbsp;
+								</a>
+								<button class="btn green" type="submit">发起申请</button>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}
