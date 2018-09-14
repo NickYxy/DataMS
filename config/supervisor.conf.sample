@@ -1,0 +1,5 @@
+[program:edu]
+command=/usr/local/bin/gunicorn wsgi --bind localhost:3000
+directory=/DataMS
+autostart=true
+autorestart=true
