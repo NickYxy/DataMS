@@ -1,19 +1,6 @@
 import os
 import time
-import maya
 from uuid import uuid4
-
-
-def epoch_of_now():
-    return maya.now().epoch
-
-
-def epoch_of_date(date):
-    return maya.when(date, timezone='Asia/Shanghai').epoch
-
-
-def epoch_of_tomorrow_date(date):
-    return maya.when(date, timezone='Asia/Shanghai').add(days=1).epoch
 
 
 def short_uuid():
