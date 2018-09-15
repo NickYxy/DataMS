@@ -2,6 +2,24 @@ import os
 import time
 from uuid import uuid4
 
+import maya
+
+
+def epoch_of_now():
+    return maya.now().epoch
+
+
+def rfc2822_datetime():
+    return maya.now().rfc2822()
+
+
+def epoch_of_tomorrow_date(date):
+    return maya.when(date, timezone='Asia/Shanghai').add(days=1).epoch
+
+
+def epoch_of_date(date):
+    return maya.when(date, timezone='Asia/Shanghai').epoch
+
 
 def short_uuid():
     seed = str(uuid4())
